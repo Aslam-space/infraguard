@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfraGuard — AIOps Platform</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">⚡ InfraGuard</div>
+  <div class="tagline">Autonomous AIOps Self-Healing Platform</div>
+  <div id="status-badge" class="badge nominal">● NOMINAL</div>
+</header>
+
+<!-- METRICS ROW -->
+<div class="grid-4">
+  <div class="card">
+    <div class="card-label">CPU Usage</div>
+    <div class="card-value" id="cpu-val">0%</div>
+    <div class="bar-wrap"><div class="bar cpu-bar" id="cpu-bar"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-label">RAM Usage</div>
+    <div class="card-value" id="ram-val">0%</div>
+    <div class="bar-wrap"><div class="bar ram-bar" id="ram-bar"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Disk Usage</div>
+    <div class="card-value" id="disk-val">0%</div>
+    <div class="bar-wrap"><div class="bar disk-bar" id="disk-bar"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Processes</div>
+    <div class="card-value" id="proc-val">0</div>
+    <div class="card-sub">Active processes</div>
+  </div>
+</div>
+
+<!-- CHARTS ROW -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-label">CPU & RAM History</div>
+    <canvas id="cpuChart" height="120"></canvas>
+  </div>
+  <div class="card">
+    <div class="card-label">Network I/O (KB/s)</div>
+    <canvas id="netChart" height="120"></canvas>
+  </div>
+</div>
+
+<!-- SLO ROW -->
+<div class="grid-3">
+  <div class="card">
+    <div class="card-label">Uptime</div>
+    <div class="card-value green" id="uptime-val">100%</div>
+    <div class="card-sub">Target: 99.9%</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Error Budget</div>
+    <div class="card-value" id="budget-val">43.8 min</div>
+    <div class="card-sub" id="budget-status">HEALTHY</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Avg MTTR</div>
+    <div class="card-value" id="mttr-val">0s</div>
+    <div class="card-sub">Mean Time To Recovery</div>
+  </div>
+</div>
+
+<!-- INCIDENTS + AGENT ROW -->
+<div class="grid-2">
+
+  <!-- Incident Log -->
+  <div class="card">
+    <div class="card-label">Incident Log
+      <a href="/api/report" class="btn-small">📄 PDF Report</a>
+    </div>
+    <table id="incident-table">
+      <thead>
+        <tr><th>Time</th><th>Type</th><th>Value</th><th>MTTR</th><th>Status</th></tr>
+      </thead>
+      <tbody id="incident-body">
+        <tr><td colspan="5" class="empty">No incidents yet</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- AI Agent -->
+  <div class="card">
+    <div class="card-label">🤖 AI Agent Console</div>
+    <div id="agent-log">
+      <div class="agent-msg system">InfraGuard AI Agent ready. Ask me anything.</div>
+    </div>
+    <div class="agent-input-row">
+      <input type="text" id="agent-input"
+             placeholder="e.g. Check server health and fix issues"
+             onkeydown="if(event.key==='Enter') askAgent()">
+      <button onclick="askAgent()">Run</button>
+    </div>
+    <div class="agent-presets">
+      <button onclick="preset('Check server health and fix any issues')">Health Check</button>
+      <button onclick="preset('Analyze current anomalies and heal them')">Auto Heal</button>
+      <button onclick="preset('Give me a summary of recent incidents')">Incident Summary</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- MANUAL HEAL BUTTON -->
+<div class="center-row">
+  <button class="btn-heal" onclick="manualHeal()">🔧 Trigger Manual Heal</button>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a1a;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 20px;
+  background: #0d0d2b;
+  border: 1px solid #1a1a4e;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00d4ff;
+  letter-spacing: 2px;
+}
+.tagline {
+  font-size: 0.85rem;
+  color: #888;
+  flex: 1;
+}
+.badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.badge.nominal  { background: #003300; color: #00ff88; border: 1px solid #00ff88; }
+.badge.warning  { background: #332200; color: #ffaa00; border: 1px solid #ffaa00; }
+.badge.critical { background: #330000; color: #ff4444; border: 1px solid #ff4444; }
+
+/* GRIDS */
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 15px; margin-bottom: 15px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 15px; margin-bottom: 15px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; margin-bottom: 15px; }
+
+@media(max-width:768px) {
+  .grid-4,.grid-2,.grid-3 { grid-template-columns: 1fr; }
+}
+
+/* CARDS */
+.card {
+  background: #0d0d2b;
+  border: 1px solid #1a1a4e;
+  border-radius: 10px;
+  padding: 18px;
+}
+.card-label {
+  font-size: 0.75rem;
+  color: #00d4ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.card-value.green  { color: #00ff88; }
+.card-value.yellow { color: #ffaa00; }
+.card-value.red    { color: #ff4444; }
+.card-sub { font-size: 0.75rem; color: #666; }
+
+/* BARS */
+.bar-wrap {
+  background: #1a1a3e;
+  border-radius: 4px;
+  height: 6px;
+  overflow: hidden;
+}
+.bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+.cpu-bar  { background: linear-gradient(90deg, #00d4ff, #0088ff); }
+.ram-bar  { background: linear-gradient(90deg, #00ff88, #00aa55); }
+.disk-bar { background: linear-gradient(90deg, #ffaa00, #ff6600); }
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+th {
+  color: #00d4ff;
+  padding: 8px;
+  border-bottom: 1px solid #1a1a4e;
+  text-align: left;
+}
+td {
+  padding: 8px;
+  border-bottom: 1px solid #111130;
+  color: #ccc;
+}
+.empty { color: #444; text-align: center; }
+
+/* AGENT */
+#agent-log {
+  height: 200px;
+  overflow-y: auto;
+  background: #050510;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.agent-msg { margin-bottom: 8px; padding: 6px 10px; border-radius: 6px; }
+.agent-msg.system { color: #00d4ff; background: #0a0a2e; }
+.agent-msg.user   { color: #ffffff; background: #1a1a3e; text-align: right; }
+.agent-msg.ai     { color: #00ff88; background: #001a0d; }
+.agent-msg.error  { color: #ff4444; background: #1a0000; }
+
+.agent-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.agent-input-row input {
+  flex: 1;
+  background: #0a0a2e;
+  border: 1px solid #1a1a4e;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 0.85rem;
+  outline: none;
+}
+.agent-input-row input:focus { border-color: #00d4ff; }
+.agent-input-row button,
+.agent-presets button,
+.btn-small,
+.btn-heal {
+  background: #00d4ff22;
+  border: 1px solid #00d4ff;
+  color: #00d4ff;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+.agent-presets button:hover,
+.agent-input-row button:hover,
+.btn-heal:hover { background: #00d4ff; color: #000; }
+
+.agent-presets { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.btn-heal {
+  padding: 12px 30px;
+  font-size: 1rem;
+  border-color: #ff6600;
+  color: #ff6600;
+  background: #ff660011;
+}
+.btn-heal:hover { background: #ff6600; color: #000; }
+
+.center-row {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px;
+}

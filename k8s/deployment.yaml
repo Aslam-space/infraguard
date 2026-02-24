@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infraguard
+  namespace: default
+  labels:
+    app: infraguard
+    version: "1.0"
+    managed-by: "Aslam-space"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: infraguard
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: infraguard
+    spec:
+      containers:
+        - name: infraguard
+          image: infraguard:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: FLASK_ENV
+              value: "production"
+            - name: PORT
+              value: "8080"
+            - name: HEAL_ENABLED
+              value: "true"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/data
+      volumes:
+        - name: data-volume
+          emptyDir: {}

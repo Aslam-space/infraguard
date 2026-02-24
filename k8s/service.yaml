@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: infraguard-service
+  namespace: default
+  labels:
+    app: infraguard
+spec:
+  selector:
+    app: infraguard
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: infraguard-internal
+  namespace: default
+spec:
+  selector:
+    app: infraguard
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080

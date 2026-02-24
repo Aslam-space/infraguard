@@ -1,0 +1,39 @@
+# Core
+flask==3.1.0
+gunicorn==21.2.0
+python-dotenv==1.0.0
+
+# ML
+scikit-learn==1.4.0
+numpy==1.26.4
+pandas==2.2.0
+
+# System monitoring
+psutil==5.9.8
+
+# Database / Cache
+redis==5.0.1
+
+# HTTP
+requests==2.31.0
+
+# WebSocket
+flask-socketio==5.3.6
+eventlet==0.35.1
+
+# Monitoring
+prometheus-flask-exporter==0.23.2
+prometheus-client==0.20.0
+
+# PDF Reports
+reportlab==4.1.0
+
+# AI Agent
+langchain==0.1.0
+langchain-openai==0.0.5
+langchain-community==0.0.10
+chromadb==0.4.22
+
+# Observability
+opentelemetry-sdk
+opentelemetry-instrumentation-flask
