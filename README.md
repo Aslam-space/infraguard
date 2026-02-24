@@ -246,6 +246,6 @@ Load image
 �
 Load image
 ](https://github.com/Aslam-space)
-Open to DevOps, Cloud Engineering and Technical Support opportunities in Bangalore.
+DevOps, Cloud Engineering DEMON! .
 📄 License
 MIT License — free to use and modify.
