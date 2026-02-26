@@ -74,12 +74,15 @@ jobs:
           timeout:  120s
           script: |
             cd ~/infraguard
+            git reset --hard HEAD
+            git clean -fd
             git pull origin main
             sudo docker-compose down
             sudo docker-compose up -d --build
-            sleep 15
+            sleep 20
             HEALTH=$(curl -s -o /dev/null -w "%{http_code}" \
-              http://localhost:8080/health)
+              http://localhost:8080/health --connect-timeout 10)
+            echo "Health check: $HEALTH"
             if [ "$HEALTH" = "200" ]; then
               echo "Deploy successful"
             else
@@ -88,7 +91,7 @@ jobs:
             fi
 
       - name: Notify Telegram on success
-        if: success()
+        if: ${{ success() }}
         run: |
           curl -s -X POST \
             "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
@@ -96,7 +99,7 @@ jobs:
             -d text="✅ InfraGuard deployed successfully%0ACommit: ${{ github.sha }}"
 
       - name: Notify Telegram on failure
-        if: failure()
+        if: ${{ failure() }}
         run: |
           curl -s -X POST \
             "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
