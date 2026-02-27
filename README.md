@@ -1,225 +1,88 @@
-# ⚡ InfraGuard — Autonomous AIOps Self-Healing Platform
+# CI/CD Jenkins + Docker + AWS Static Site Pipeline
 
-[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Aslam-space/infraguard/actions)
-[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com)
-[![AWS](https://img.shields.io/badge/AWS-EC2-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com)
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-3.1-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com)
-[![LangChain](https://img.shields.io/badge/LangChain-AI_Agent-1C3C3C?style=for-the-badge)](https://langchain.com)
-[![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)](https://prometheus.io)
-[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)](https://terraform.io)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](#license)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)
+[![Docker Image](https://img.shields.io/badge/docker-ready-blue)](#)
+[![AWS](https://img.shields.io/badge/AWS-deployed-orange)](#)
 
-> AI-powered infrastructure monitoring platform that detects anomalies,
-> heals servers automatically, and explains every decision in plain English.
-> Built for high-availability production environments.
+**Repository:** `ci-cd-jenkins-docker-aws`  
+**Role:** Full DevOps Pipeline Showcase for Static Website Deployment  
+---
+
+## ✨ Features
+
+- **Automated CI/CD:** Code pushes trigger Jenkins builds automatically  
+- **Multi-Stage Docker:** Optimized container images for faster deployment  
+- **Container Health Checks:** Automatic monitoring and restart if unhealthy  
+- **AWS ECR Integration:** Push Docker images to AWS Elastic Container Registry  
+- **Cloudflare Ready:** Supports secure HTTPS deployment via Cloudflare  
+- **Dynamic Metadata Injection:** Injects BUILD_NUMBER and GIT_COMMIT for traceability  
+- **Resource Cleanup:** Old Docker images removed automatically to save space  
 
 ---
 
-## 🎯 What Is InfraGuard?
+## 🛠 Tools & Technologies
 
-InfraGuard is an autonomous AIOps platform that:
-
-- 🧠 **Learns** normal server behavior using Machine Learning
-- 🔍 **Detects** anomalies before they become outages
-- 🔧 **Heals** infrastructure automatically without human intervention
-- 💬 **Explains** every decision in plain English via AI Agent
-- 📊 **Tracks** SLO/SLI metrics following Google SRE principles
-- 📄 **Reports** PDF incident reports with MTTR calculations
-- 🚨 **Alerts** via Telegram in real time
-
----
-
-## 🏗️ Architecture
-
-```
-Browser
-   ↓
-Nginx (Reverse Proxy + Security Headers)
-   ↓
-Flask App (Gunicorn + Eventlet)
-   ↓
-┌──────────────────────────────────────┐
-│  collector.py  → metrics every 10s   │
-│  detector.py   → ML anomaly detect   │
-│  agent.py      → AI decision engine  │
-│  healer.py     → auto-healing logic  │
-│  slo.py        → SLO/SLI tracking    │
-│  alerter.py    → Telegram alerts     │
-│  reporter.py   → PDF reports         │
-└──────────────────────────────────────┘
-   ↓              ↓              ↓
-SQLite DB      Redis Queue    ChromaDB
-                               (AI Memory)
-```
+| Tool / Technology | Role |
+|------------------|------|
+| Jenkins           | CI/CD Automation |
+| Docker            | Containerization |
+| AWS ECR           | Container Registry |
+| EC2               | Deployment Host |
+| Bash              | Scripts & Health Checks |
+| GitHub            | Source Code & Webhook Trigger |
+| Cloudflare        | HTTPS / Secure Hosting |
 
 ---
 
-## 🛠️ Tech Stack
+## 🎯 Key Learning Outcomes
 
-| Layer | Technology |
-|-------|-----------|
-| Language | Python 3.12 |
-| Framework | Flask 3.1 + Gunicorn + Eventlet |
-| AI Agent | LangChain + GPT-4o-mini |
-| ML Model | scikit-learn Isolation Forest |
-| Vector Memory | ChromaDB |
-| Monitoring | Prometheus + Grafana + Node-Exporter |
-| Containers | Docker + Docker Compose |
-| Proxy | Nginx |
-| Cache | Redis |
-| Database | SQLite |
-| IaC | Terraform |
-| Orchestration | Kubernetes manifests |
-| CI/CD | GitHub Actions + Trivy security scan |
-| Alerting | Telegram Bot API |
-| Reporting | ReportLab PDF |
-| Cloud | AWS EC2 |
-| SRE | SLO/SLI/Error Budget tracking |
+- Build **robust, production-ready pipelines**  
+- Gain hands-on experience with **multi-stage Docker builds**  
+- Automate deployment and monitoring for **24/7 uptime**  
+- Learn integration between **GitHub, Jenkins, Docker, and AWS**  
+- Troubleshoot pipeline failures and implement **health verification scripts**  
+- Prepare a professional **DevOps project showcase** for recruiters  
 
 ---
 
-## 🚀 Quick Start
+## 🖥 Live Demo / Preview
 
-### Local Development
+> **Note:** Instance runs on-demand. You can request demo by starting EC2 instance.  
+
+Example URL:
+---
+
+## 🚀 Project Overview
+
+This project demonstrates a **complete end-to-end CI/CD pipeline** for deploying a static website using **Jenkins, Docker, and AWS**, with monitoring and automated health checks.  
+
+The goal is to showcase the **full DevOps lifecycle**:
+- Code push → Automated build → Containerized deployment → Health monitoring → Cloud hosting
+
+This pipeline ensures that every change in the repository is automatically deployed to the live environment with minimal manual intervention.
+
+---
+![Website Preview](docs/preview-placeholder.png)  
+
+> Replace `preview-placeholder.png` with actual screenshot of the site.
+
+---
+
+## 📁 How to Run Locally
+
 ```bash
-git clone https://github.com/Aslam-space/infraguard.git
-cd infraguard
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-cp .env .env.local   # add your keys
-gunicorn app.routes:app --bind 0.0.0.0:8080 \
-  --worker-class eventlet --workers 1
-```
+# Clone repository
+git clone https://github.com/Aslam-space/ci-cd-jenkins-docker-aws.git
+cd ci-cd-jenkins-docker-aws
 
-### Docker Compose (Full Stack)
-```bash
-docker compose up -d --build
-```
+# Build Docker image
+docker build -t ci-cd-static:latest -f Dockerfile.multi-stage app/
 
-### Terraform (Provision EC2)
-```bash
-cd terraform
-terraform init
-terraform plan
-terraform apply
-```
+# Run Docker container
+docker run -d --name ci-cd-container -p 8090:80 ci-cd-static:latest
 
----
+# Verify container health
+./healthcheck.sh
 
-## 🤖 AI Agent
+## 🏗 Architecture
 
-InfraGuard uses a LangChain AI agent with 5 tools:
-
-| Tool | What It Does |
-|------|-------------|
-| get_current_metrics | Reads live CPU/RAM/Disk |
-| get_incident_history | Checks past incidents |
-| check_anomaly | Runs ML detection |
-| execute_healing | Runs bash heal script |
-| get_avg_recovery_time | Calculates MTTR |
-
-Agent uses **ChromaDB vector memory** to remember past incidents and make smarter decisions over time.
-
----
-
-## 🔧 Auto-Healing Scenarios
-
-| Anomaly | Detection | Action | Target MTTR |
-|---------|-----------|--------|-------------|
-| CPU > 90% | Isolation Forest | Kill top process | < 30s |
-| RAM > 85% | Pattern detection | Drop cache + kill hog | < 30s |
-| Disk > 85% | Threshold breach | Clean logs + Docker | < 60s |
-| Service crash | Health check fail | Restart service | < 45s |
-
----
-
-## 📊 SLO/SLI Dashboard
-
-Following **Google SRE principles:**
-
-```
-SLO Target:    99.9% uptime
-Error Budget:  43.8 minutes/month
-MTTR Target:   < 30 seconds
-Heal Rate:     > 95%
-```
-
----
-
-## 🔒 DevSecOps Pipeline
-
-```
-git push → GitHub Actions triggered
-         → Python import tests
-         → Trivy security scan (Docker image)
-         → Build verified
-         → SSH deploy to EC2
-         → Health check passes
-         → Telegram notification sent
-```
-
----
-
-## 📁 Project Structure
-
-```
-infraguard/
-├── app/
-│   ├── routes.py       Flask API + startup
-│   ├── agent.py        LangChain AI agent
-│   ├── collector.py    Metrics collection
-│   ├── detector.py     ML anomaly detection
-│   ├── healer.py       Auto-healing logic
-│   ├── alerter.py      Telegram alerts
-│   ├── reporter.py     PDF reports
-│   ├── slo.py          SLO/SLI tracking
-│   ├── database.py     SQLite operations
-│   └── config.py       Environment config
-├── scripts/            Bash heal scripts
-├── terraform/          AWS EC2 provisioning
-├── k8s/                Kubernetes manifests
-├── nginx/              Reverse proxy config
-├── prometheus/         Metrics scraping
-└── .github/workflows/  CI/CD pipeline
-```
-
----
-
-## 📡 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | Live dashboard |
-| GET | `/api/metrics` | Current metrics |
-| GET | `/api/metrics/history` | Last 60 readings |
-| GET | `/api/incidents` | Recent incidents |
-| GET | `/api/status` | System status |
-| GET | `/api/slo` | SLO/SLI data |
-| POST | `/api/agent` | Ask AI agent |
-| POST | `/api/heal` | Trigger manual heal |
-| GET | `/api/report` | Download PDF report |
-| GET | `/health` | Health check |
-| GET | `/metrics` | Prometheus metrics |
-
----
-
-## 👤 Author
-
-**Aslam A** — Exploring DevOps and Cloud
-
-- 🌍 India
-- 🔭 Currently exploring Cloud Infrastructure and DevOps
-- 🌱 Learning by building real projects
-- ⚡ Always curious about new tech
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Aslam_A-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aslama77)
-[![GitHub](https://img.shields.io/badge/GitHub-Aslam--space-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Aslam-space)
-
----
-
-## 📄 License
-
-MIT License — free to use and modify.
-# CI/CD Test Thu Feb 26 11:52:24 UTC 2026
