@@ -79,8 +79,7 @@ jobs:
             git pull origin main
             sudo docker-compose restart
             sleep 15
-            HEALTH=$(curl -s -o /dev/null -w "%{http_code}" \
-              http://localhost:8080/health --connect-timeout 10)
+            HEALTH=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/health --connect-timeout 10)
             echo "Health check: $HEALTH"
             if [ "$HEALTH" = "200" ]; then
               echo "Deploy successful"
@@ -97,16 +96,22 @@ jobs:
     steps:
       - name: Notify success
         if: needs.deploy.result == 'success'
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SHA: ${{ github.sha }}
         run: |
-          curl -s -X POST \
-            "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
-            -d text="✅ InfraGuard deployed!%0ACommit: ${{ github.sha }}%0ABranch: main"
+          curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            -d "chat_id=${CHAT}" \
+            -d "text=✅ InfraGuard deployed! Commit: ${SHA}"
 
       - name: Notify failure
         if: needs.deploy.result == 'failure'
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SHA: ${{ github.sha }}
         run: |
-          curl -s -X POST \
-            "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" \
-            -d text="❌ InfraGuard deploy FAILED%0ACommit: ${{ github.sha }}"
+          curl -s -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            -d "chat_id=${CHAT}" \
+            -d "text=❌ InfraGuard deploy FAILED! Commit: ${SHA}"
