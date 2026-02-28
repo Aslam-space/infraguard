@@ -24,7 +24,7 @@
 
 ---
 
-**[🌐 Live Demo](http://goat777asm.duckdns.org:8080)** &nbsp;|&nbsp; **[📊 Grafana](http://goat777asm.duckdns.org:3000)** &nbsp;|&nbsp; **[🔥 Prometheus](http://goat777asm.duckdns.org:9090)** &nbsp;|&nbsp; **[📁 GitHub](https://github.com/Aslam-space/infraguard)**
+**[🌐 Live Demo](http://goat777asm.duckdns.org:8080)** &nbsp;|&nbsp; **[📊 Grafana](http://goat777asm.duckdns.org:3000)** &nbsp;|&nbsp; **[🔥 Prometheus](http://goat777asm.duckdns.org:9090)** &nbsp;|&nbsp; **[🎥 Demo Video](https://www.loom.com/share/c6ae068349974d1cbe4071daa5021fbf)** &nbsp;|&nbsp; **[📁 GitHub](https://github.com/Aslam-space/infraguard)**
 
 </div>
 
