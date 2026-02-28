@@ -406,3 +406,42 @@ MIT License — free to use, modify and distribute.
 ⭐ Star this repo if you found it useful
 
 </div>
+
+---
+
+## 📸 Screenshots
+
+### 🖥️ Live Dashboard
+
+
+![Dashboard](screenshots/infraguard/dashboard.png)
+
+
+
+### 📊 Grafana Monitoring
+
+
+![Grafana](screenshots/infraguard/grafana.png)
+
+
+
+### 🔥 Prometheus Metrics
+
+
+![Prometheus](screenshots/infraguard/prometheus.png)
+
+
+
+### ✅ CI/CD Pipeline (GitHub Actions)
+
+
+![Pipeline](screenshots/infraguard/pipeline.png)
+
+
+
+### 📱 Telegram Alerts
+
+
+![Telegram](screenshots/infraguard/telegram.jpg)
+
+
