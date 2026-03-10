@@ -23,8 +23,7 @@
 ![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)
 
 ---
-
-**[🌐 Live Demo](https://goat777asm.duckdns.org)** | **[📊 Grafana](https://goat777asm.duckdns.org/grafana/)** | **[🔥 Prometheus](https://goat777asm.duckdns.org/prometheus/)**
+**[🌐 Live Demo](https://goat777asm.duckdns.org)** &nbsp;|&nbsp; **[📊 Grafana](https://goat777asm.duckdns.org/grafana/)** &nbsp;|&nbsp; **[🔥 Prometheus](https://goat777asm.duckdns.org/prometheus/)** &nbsp;|&nbsp; **[🎥 Demo Video](https://www.loom.com/share/c6ae068349974d1cbe4071daa5021fbf)** &nbsp;|&nbsp; **[📁 GitHub](https://github.com/Aslam-space/infraguard)**
 
 </div>
 
