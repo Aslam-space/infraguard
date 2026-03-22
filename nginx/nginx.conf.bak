@@ -1,0 +1,48 @@
+upstream infraguard {
+    server infraguard-app:8080;
+}
+
+server {
+    listen 80;
+    server_name _;
+
+    # Security headers
+    add_header X-Frame-Options        "SAMEORIGIN"    always;
+    add_header X-XSS-Protection       "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff"       always;
+    add_header Referrer-Policy        "no-referrer"   always;
+
+    # Gzip compression
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript;
+
+    # Main app
+    location / {
+        proxy_pass         http://infraguard;
+        proxy_http_version 1.1;
+
+        # WebSocket support (needed for live dashboard)
+        proxy_set_header Upgrade    $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_set_header Host            $host;
+        proxy_set_header X-Real-IP       $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_connect_timeout 60s;
+        proxy_read_timeout    60s;
+    }
+
+    # Health check endpoint
+    location /health {
+        proxy_pass http://infraguard/health;
+        access_log off;
+    }
+
+    # Prometheus metrics (internal only)
+    location /metrics {
+        proxy_pass http://infraguard/metrics;
+        allow 127.0.0.1;
+        deny  all;
+    }
+}

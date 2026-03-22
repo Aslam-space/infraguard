@@ -1,4 +1,9 @@
-upstream infraguard {
+import shutil
+
+NGINX_CONF = "/home/ubuntu/infraguard/nginx/nginx.conf"
+shutil.copy(NGINX_CONF, NGINX_CONF + ".bak3")
+
+new_config = """upstream infraguard {
     server infraguard-app:8080;
 }
 upstream grafana {
@@ -22,10 +27,8 @@ server {
         proxy_set_header Host $host;
     }
     location /prometheus/ {
-        proxy_pass http://prometheus/prometheus/;
+        proxy_pass http://prometheus/;
         proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
     location / {
         proxy_pass http://infraguard;
@@ -35,3 +38,8 @@ server {
         proxy_set_header Host $host;
     }
 }
+"""
+
+with open(NGINX_CONF, "w") as f:
+    f.write(new_config)
+print("Done!")

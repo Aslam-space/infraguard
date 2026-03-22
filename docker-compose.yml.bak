@@ -44,10 +44,6 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--web.external-url=/prometheus/'
-      - '--web.route-prefix=/prometheus/'
     restart: always
     networks:
       - infranet
@@ -59,8 +55,6 @@ services:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=infraguard123
-      - GF_SERVER_ROOT_URL=https://goat777asm.duckdns.org/grafana/
-      - GF_SERVER_SERVE_FROM_SUB_PATH=true
     restart: always
     networks:
       - infranet
@@ -70,10 +64,6 @@ services:
     container_name: infraguard-nginx
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - infraguard-app
     restart: always

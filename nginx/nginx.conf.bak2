@@ -1,0 +1,48 @@
+upstream infraguard {
+    server infraguard-app:8080;
+}
+
+server {
+    listen 80;
+    server_name goat777asm.duckdns.org;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name goat777asm.duckdns.org;
+
+    ssl_certificate     /etc/letsencrypt/live/goat777asm.duckdns.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/goat777asm.duckdns.org/privkey.pem;
+
+    add_header X-Frame-Options        "SAMEORIGIN"    always;
+    add_header X-XSS-Protection       "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff"       always;
+    add_header Referrer-Policy        "no-referrer"   always;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript;
+
+    location / {
+        proxy_pass         http://infraguard;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade    $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host            $host;
+        proxy_set_header X-Real-IP       $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_connect_timeout 60s;
+        proxy_read_timeout    60s;
+    }
+
+    location /health {
+        proxy_pass http://infraguard/health;
+        access_log off;
+    }
+
+    location /metrics {
+        proxy_pass http://infraguard/metrics;
+        allow 127.0.0.1;
+        deny  all;
+    }
+}
